@@ -1,3 +1,56 @@
+python-setuptools (44.1.1-1) unstable; urgency=medium
+
+  * New upstream version.
+  * Bump debhelper version.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 02 Aug 2020 14:20:55 +0200
+
+python-setuptools (44.0.0-3) unstable; urgency=medium
+
+  * Update debian/copyright, add license for the vendored packaging module.
+    Closes: #958318.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 13 May 2020 15:09:34 +0200
+
+python-setuptools (44.0.0-2) unstable; urgency=medium
+
+  * Stop building the Python3 packages and the -doc package.
+  * Bump standards version.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 25 Feb 2020 13:40:29 +0100
+
+python-setuptools (44.0.0-1) unstable; urgency=medium
+
+  * New upstream version.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 06 Jan 2020 12:25:00 +0100
+
+python-setuptools (41.4.0-1) unstable; urgency=medium
+
+  * New upstream version.
+  * Bump standards version.
+
+ -- Matthias Klose <doko@debian.org>  Sat, 26 Oct 2019 16:02:41 +0200
+
+python-setuptools (41.2.0-1) unstable; urgency=medium
+
+  * New upstream version.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 04 Sep 2019 08:34:04 +0200
+
+python-setuptools (41.1.0-1) unstable; urgency=medium
+
+  * New upstream version.
+  * Bump standards version.
+
+ -- Matthias Klose <doko@debian.org>  Sat, 17 Aug 2019 13:52:19 +0200
+
+python-setuptools (41.0.1-1) unstable; urgency=medium
+
+  * New upstream version.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 28 Jun 2019 17:49:32 +0200
+
 python-setuptools (40.8.0-1) unstable; urgency=medium
 
   * New upstream version.
