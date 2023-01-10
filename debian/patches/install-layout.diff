@@ -1,8 +1,6 @@
-Index: b/setuptools/command/easy_install.py
-===================================================================
 --- a/setuptools/command/easy_install.py
 +++ b/setuptools/command/easy_install.py
-@@ -149,13 +149,15 @@ class easy_install(Command):
+@@ -155,13 +155,15 @@ class easy_install(Command):
          ('local-snapshots-ok', 'l',
           "allow building eggs from local checkouts"),
          ('version', None, "print version information and exit"),
@@ -19,7 +17,7 @@ Index: b/setuptools/command/easy_install.py
      ]
  
      if site.ENABLE_USER_SITE:
-@@ -203,6 +205,10 @@ class easy_install(Command):
+@@ -209,6 +211,10 @@ class easy_install(Command):
          self.site_dirs = None
          self.installed_projects = {}
          self.sitepy_installed = False
@@ -30,7 +28,7 @@ Index: b/setuptools/command/easy_install.py
          # Always read easy_install options, even if we are subclassed, or have
          # an independent instance created.  This ensures that defaults will
          # always come from the standard configuration file(s)' "easy_install"
-@@ -271,6 +277,11 @@ class easy_install(Command):
+@@ -277,6 +283,11 @@ class easy_install(Command):
          self.expand_basedirs()
          self.expand_dirs()
  
@@ -42,7 +40,7 @@ Index: b/setuptools/command/easy_install.py
          self._expand(
              'install_dir', 'script_dir', 'build_directory',
              'site_dirs',
-@@ -297,6 +308,15 @@ class easy_install(Command):
+@@ -303,6 +314,15 @@ class easy_install(Command):
          if self.user and self.install_purelib:
              self.install_dir = self.install_purelib
              self.script_dir = self.install_scripts
@@ -58,7 +56,7 @@ Index: b/setuptools/command/easy_install.py
          # default --record from the install command
          self.set_undefined_options('install', ('record', 'record'))
          # Should this be moved to the if statement below? It's not used
-@@ -1344,11 +1364,28 @@ class easy_install(Command):
+@@ -1355,11 +1375,28 @@ class easy_install(Command):
                  self.debug_print("os.makedirs('%s', 0o700)" % path)
                  os.makedirs(path, 0o700)
  
@@ -87,7 +85,7 @@ Index: b/setuptools/command/easy_install.py
      )
  
      DEFAULT_SCHEME = dict(
-@@ -1359,11 +1396,18 @@ class easy_install(Command):
+@@ -1370,11 +1407,18 @@ class easy_install(Command):
      def _expand(self, *attrs):
          config_vars = self.get_finalized_command('install').config_vars
  
@@ -108,7 +106,7 @@ Index: b/setuptools/command/easy_install.py
              for attr, val in scheme.items():
                  if getattr(self, attr, None) is None:
                      setattr(self, attr, val)
-@@ -1405,9 +1449,15 @@ def get_site_dirs():
+@@ -1416,9 +1460,15 @@ def get_site_dirs():
                  sitedirs.extend([
                      os.path.join(
                          prefix,
@@ -119,14 +117,12 @@ Index: b/setuptools/command/easy_install.py
 +                    os.path.join(
 +                        prefix,
                          "lib",
-                         "python" + sys.version[:3],
+                         "python{}.{}".format(*sys.version_info),
 -                        "site-packages",
 +                        "dist-packages",
                      ),
                      os.path.join(prefix, "lib", "site-python"),
                  ])
-Index: b/setuptools/command/install_egg_info.py
-===================================================================
 --- a/setuptools/command/install_egg_info.py
 +++ b/setuptools/command/install_egg_info.py
 @@ -1,5 +1,5 @@

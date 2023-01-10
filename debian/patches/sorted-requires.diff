@@ -1,8 +1,6 @@
-Index: b/setuptools/command/egg_info.py
-===================================================================
 --- a/setuptools/command/egg_info.py
 +++ b/setuptools/command/egg_info.py
-@@ -621,7 +621,7 @@ def warn_depends_obsolete(cmd, basename,
+@@ -638,7 +638,7 @@ def warn_depends_obsolete(cmd, basename,
  def _write_requirements(stream, reqs):
      lines = yield_lines(reqs or ())
      append_cr = lambda line: line + '\n'

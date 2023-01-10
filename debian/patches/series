@@ -7,3 +7,4 @@ no-SOURCES.txt-in-egg-ingo.diff
 reproducible.diff
 sorted-requires.diff
 PKG-INFO-output-reproducible.diff
+removed-bdist_wininst.patch
