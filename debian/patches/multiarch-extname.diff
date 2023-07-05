@@ -1,6 +1,6 @@
 --- a/setuptools/command/easy_install.py
 +++ b/setuptools/command/easy_install.py
-@@ -214,6 +214,7 @@ class easy_install(Command):
+@@ -183,6 +183,7 @@
          # enable custom installation, known values: deb
          self.install_layout = None
          self.force_installation_into_system_dir = None
@@ -8,11 +8,10 @@
  
          # Always read easy_install options, even if we are subclassed, or have
          # an independent instance created.  This ensures that defaults will
-@@ -288,6 +289,10 @@ class easy_install(Command):
+@@ -270,6 +271,9 @@
                  raise DistutilsOptionError("unknown value for --install-layout")
              self.install_layout = self.install_layout.lower()
  
-+            import sysconfig
 +            if sys.version_info[:2] >= (3, 3):
 +                self.multiarch = sysconfig.get_config_var('MULTIARCH')
 +
@@ -21,7 +20,7 @@
              'site_dirs',
 --- a/setuptools/command/install_lib.py
 +++ b/setuptools/command/install_lib.py
-@@ -7,6 +7,18 @@ import distutils.command.install_lib as
+@@ -7,6 +7,18 @@
  class install_lib(orig.install_lib):
      """Don't add compiled flags to filenames of non-Python files"""
  
@@ -40,7 +39,7 @@
      def run(self):
          self.build()
          outfiles = self.install()
-@@ -91,6 +103,8 @@ class install_lib(orig.install_lib):
+@@ -92,6 +104,8 @@
          exclude = self.get_exclusions()
  
          if not exclude:
@@ -49,7 +48,7 @@
              return orig.install_lib.copy_tree(self, infile, outfile)
  
          # Exclude namespace package __init__.py* files from the output
-@@ -100,12 +114,24 @@ class install_lib(orig.install_lib):
+@@ -101,12 +115,24 @@
  
          outfiles = []
  

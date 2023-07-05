@@ -1,39 +1,180 @@
-python-setuptools (44.1.1-1.2) unstable; urgency=medium
+setuptools (66.1.1-1) unstable; urgency=medium
+
+  * New upstream version.
+  * Bump standards version.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 27 Jan 2023 07:49:44 +0100
+
+setuptools (65.6.3-1) unstable; urgency=medium
+
+  * New upstream version.
+
+ -- Matthias Klose <doko@debian.org>  Sat, 31 Dec 2022 10:00:07 +0100
+
+setuptools (65.5.0-1.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Install distutils-precedence.pth, to avoid packages need to hack import
+    order in setup.py. Closes: #1025216
+
+ -- Stefano Rivera <stefanor@debian.org>  Sat, 03 Dec 2022 10:16:50 -0400
+
+setuptools (65.5.0-1) unstable; urgency=medium
+
+  * New upstream version.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 21 Oct 2022 16:45:14 +0200
+
+setuptools (65.3.0-1.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Fix a merge error in multiarch-extname.diff, causing sysconfig to be an
+    unbound local in easy_install.py
+
+ -- Stefano Rivera <stefanor@debian.org>  Thu, 15 Sep 2022 10:01:42 +0200
+
+setuptools (65.3.0-1) unstable; urgency=medium
+
+  * New upstream version.
+  * Build-depend on python3-sphinx-notfound-page.
+  * Bump standards version.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 14 Sep 2022 16:54:08 +0200
+
+setuptools (63.2.0-1) experimental; urgency=medium
+
+  * New upstream version.
+  * Build-depend on python3-sphinx-reredirects.
+  * Bump standards version.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 17 Jul 2022 17:53:39 +0200
+
+setuptools (59.6.0-1.2) unstable; urgency=medium
 
   * Non-maintainer upload.
   * Source-only upload.
 
- -- Stefano Rivera <stefanor@debian.org>  Tue, 18 Jan 2022 08:55:59 -0400
+ -- Stefano Rivera <stefanor@debian.org>  Tue, 18 Jan 2022 08:56:42 -0400
 
-python-setuptools (44.1.1-1.1) unstable; urgency=medium
+setuptools (59.6.0-1.1) unstable; urgency=medium
 
   * Non-maintainer upload.
-  * Build a python2-setuptools-whl package. Closes: #1003573.
-  * Patch: Handle the removal of bdist_wininst from distutils.
-    Closes: #1002444
+  * Build a python3-setuptools-whl package. Closes: #1003573.
 
- -- Stefano Rivera <stefanor@debian.org>  Wed, 12 Jan 2022 13:33:15 -0400
+ -- Stefano Rivera <stefanor@debian.org>  Wed, 12 Jan 2022 13:21:21 -0400
 
-python-setuptools (44.1.1-1) unstable; urgency=medium
+setuptools (59.6.0-1) unstable; urgency=medium
 
   * New upstream version.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 16 Dec 2021 02:16:07 +0100
+
+setuptools (59.4.0-1) unstable; urgency=medium
+
+  * New upstream version.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 02 Dec 2021 14:38:34 +0100
+
+setuptools (59.2.0-1) unstable; urgency=medium
+
+  * New upstream version.
+
+ -- Matthias Klose <doko@debian.org>  Sat, 27 Nov 2021 09:19:38 +0100
+
+setuptools (58.2.0-1) unstable; urgency=medium
+
+  * New upstream version.
+  * Still build the docs with the old alabaster theme.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 11 Oct 2021 13:44:59 +0200
+
+setuptools (57.0.0-1) experimental; urgency=medium
+
+  * New upstream version.
+  * Build the docs without the towncrier sphinx extension for now.
+  * Don't include the exe installer files in the binary package, not
+    rebuilt using the mingw64 toolchain. Closes: #989346.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 29 Jun 2021 12:38:01 +0200
+
+setuptools (56.0.0-1) experimental; urgency=medium
+
+  * New upstream version.
+  * Build the docs without the sphinx_inline_tabs extension for now.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 04 May 2021 12:57:29 +0200
+
+setuptools (54.1.0-1) experimental; urgency=medium
+
+  * New upstream version.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 09 Mar 2021 12:00:51 +0100
+
+setuptools (52.0.0-3) unstable; urgency=medium
+
+  * Use sysconfig.get_platform instead of distutils.util.get_platform.
+    in the vendored packaging module. Addresses: #982921.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 03 Mar 2021 11:04:50 +0100
+
+setuptools (52.0.0-1) unstable; urgency=medium
+
+  * New upstream version.
+  * Drop the easy_install scripts, removed upstream.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 03 Feb 2021 09:53:25 +0100
+
+setuptools (51.3.3-1) unstable; urgency=medium
+
+  * New upstream version.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 20 Jan 2021 17:11:54 +0100
+
+setuptools (51.1.0-1) unstable; urgency=medium
+
+  * New upstream version.
+  * Bump debhelper and standards versions.
+  * Take the docs/Makefile from the 50.3.0 release, and don't build the docs
+    with the advertising sidebar.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 23 Dec 2020 11:42:50 +0100
+
+setuptools (50.3.0-1) unstable; urgency=medium
+
+  * New upstream version.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 06 Oct 2020 13:06:30 +0200
+
+setuptools (49.3.1-2) unstable; urgency=medium
+
+  * Include _distutils_hack in the packge. Closes: #968410.
+
+ -- Matthias Klose <doko@debian.org>  Sat, 15 Aug 2020 11:56:47 +0200
+
+setuptools (49.3.1-1) unstable; urgency=medium
+
+  * New upstream version.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 14 Aug 2020 13:36:56 +0200
+
+setuptools (46.1.3-1) unstable; urgency=medium
+
+  * New upstream version.
+  * Add lintian overrides for source-contains-prebuilt-windows-binary
+    to document why these files are acceptable for Debian (Scott Kitterman).
+    Closes: #958324.
   * Bump debhelper version.
-
- -- Matthias Klose <doko@debian.org>  Sun, 02 Aug 2020 14:20:55 +0200
-
-python-setuptools (44.0.0-3) unstable; urgency=medium
-
   * Update debian/copyright, add license for the vendored packaging module.
-    Closes: #958318.
 
- -- Matthias Klose <doko@debian.org>  Wed, 13 May 2020 15:09:34 +0200
+ -- Matthias Klose <doko@debian.org>  Sun, 26 Apr 2020 12:43:26 +0200
 
-python-setuptools (44.0.0-2) unstable; urgency=medium
+setuptools (45.2.0-1) unstable; urgency=medium
 
-  * Stop building the Python3 packages and the -doc package.
+  * New upstream version, Python3 only. Keep building the Python2 and
+    PyPy packages from the python-setuptools sources.
   * Bump standards version.
 
- -- Matthias Klose <doko@debian.org>  Tue, 25 Feb 2020 13:40:29 +0100
+ -- Matthias Klose <doko@debian.org>  Tue, 25 Feb 2020 13:20:41 +0100
 
 python-setuptools (44.0.0-1) unstable; urgency=medium
 

@@ -1,13 +1,7 @@
 #!/usr/bin/make -f
 
 %:
-	dh $@ --with python2,pypy,sphinxdoc --buildsystem pybuild
-
-# no versioned easy_install scripts
-export SETUPTOOLS_DISABLE_VERSIONED_EASY_INSTALL_SCRIPT = yes
-
-# versioned easy_install scripts
-#export XPYVERSIONS  = 2.7
+	dh $@ --with python3,sphinxdoc --buildsystem pybuild
 
 override_dh_auto_test:
 
@@ -16,38 +10,38 @@ override_dh_auto_install:
 
 	PYTHONPATH=$(CURDIR) $(MAKE) -C docs html
 
-	mkdir -p debian/python2-setuptools-whl/usr/share/python-wheels
-	python3 setup.py bdist_wheel --universal \
-	        -d debian/python2-setuptools-whl/usr/share/python-wheels
+	mkdir -p debian/python3-setuptools-whl/usr/share/python-wheels
+	python3 setup.py bdist_wheel \
+	        -d debian/python3-setuptools-whl/usr/share/python-wheels
 
 	# dh_pypy from dh-python < 1.20150705-1 falls over requires.txt
 	# and our requires.txt aren't useful
 	find debian/tmp -name requires.txt -delete
 
+	find debian/tmp -name '*.exe' | xargs -r rm -f
+
 override_dh_installchangelogs:
 	dh_installchangelogs CHANGES.rst
 
 override_dh_auto_clean:
-	# Keep entry_points, we need it to drive setup.py
-	-mv setuptools.egg-info/entry_points.txt .
+#	# Keep entry_points, we need it to drive setup.py
+#	-mv setuptools.egg-info/entry_points.txt .
 	dh_auto_clean
-	mkdir -p setuptools.egg-info
-	mv entry_points.txt setuptools.egg-info
+#	mkdir -p setuptools.egg-info
+#	mv entry_points.txt setuptools.egg-info
 
 	rm -rf .eggs docs/build
 
-override_dh_install:
-	sed -i '1 s,.*,#!/usr/bin/python,' debian/tmp/usr/bin/easy_install
-	sed '1 s/python/pypy/' debian/tmp/usr/bin/easy_install > \
-	   debian/tmp/usr/bin/easy_install-pypy
-	rm -f debian/tmp/usr/bin/easy_install*
-	dh_install
-
 override_dh_installdocs:
-	dh_installdocs -p python-pkg-resources \
-	               -p pypy-pkg-resources \
-	               docs/pkg_resources.txt
-	dh_installdocs -p python-setuptools \
-	               -p pypy-setuptools \
-	               -X pkg_resources docs/*.txt
+	dh_installdocs -p python3-pkg-resources \
+	               docs/pkg_resources.rst
+	dh_installdocs -p python3-setuptools \
+	               -X pkg_resources docs/*.rst
+	dh_installdocs -p python-setuptools-doc docs/build/html
 	dh_installdocs --remaining-packages
+	dh_link -p python-setuptools-doc \
+	        /usr/share/doc/python-setuptools-doc/html \
+	        /usr/share/doc/python3-setuptools/html \
+
+#	        /usr/share/doc/python-setuptools-doc/html \
+#	        /usr/share/doc/pypy-setuptools/html

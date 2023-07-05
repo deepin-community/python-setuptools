@@ -1,12 +1,8 @@
-from __future__ import unicode_literals
-
 import os
 import sys
 import string
 import platform
 import itertools
-
-from pkg_resources.extern.six.moves import map
 
 import pytest
 from pkg_resources.extern import packaging
@@ -15,7 +11,7 @@ import pkg_resources
 from pkg_resources import (
     parse_requirements, VersionConflict, parse_version,
     Distribution, EntryPoint, Requirement, safe_version, safe_name,
-    WorkingSet, PkgResourcesDeprecationWarning)
+    WorkingSet)
 
 
 # from Python 3.6 docs.
@@ -501,7 +497,6 @@ class TestEntryPoints:
             ep.load(require=False)
 
 
-
 class TestRequirements:
     def testBasics(self):
         r = Requirement.parse("Twisted>=1.2")
@@ -708,7 +703,7 @@ class TestParsing:
         )
 
     def test_local_version(self):
-        req, = parse_requirements('foo==1.0.org1')
+        req, = parse_requirements('foo==1.0+org1')
 
     def test_spaces_between_multiple_versions(self):
         req, = parse_requirements('foo>=1.0, <3')
@@ -778,7 +773,7 @@ class TestNamespaces:
 
     ns_str = "__import__('pkg_resources').declare_namespace(__name__)\n"
 
-    @pytest.yield_fixture
+    @pytest.fixture
     def symlinked_tmpdir(self, tmpdir):
         """
         Where available, return the tempdir as a symlink,
@@ -796,7 +791,7 @@ class TestNamespaces:
         finally:
             os.unlink(link_name)
 
-    @pytest.yield_fixture(autouse=True)
+    @pytest.fixture(autouse=True)
     def patched_path(self, tmpdir):
         """
         Patch sys.path to include the 'site-pkgs' dir. Also

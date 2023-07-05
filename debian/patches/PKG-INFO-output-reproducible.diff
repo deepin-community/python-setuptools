@@ -1,11 +1,11 @@
 --- a/setuptools/dist.py
 +++ b/setuptools/dist.py
-@@ -195,7 +195,7 @@ def write_pkg_file(self, file):
-             self.long_description_content_type
-         )
+@@ -208,7 +208,7 @@ def write_pkg_file(self, file):  # noqa:
+     if self.long_description_content_type:
+         write_field('Description-Content-Type', self.long_description_content_type)
      if self.provides_extras:
 -        for extra in self.provides_extras:
 +        for extra in sorted(self.provides_extras):
              write_field('Provides-Extra', extra)
  
- 
+     self._write_list(file, 'License-File', self.license_files or [])

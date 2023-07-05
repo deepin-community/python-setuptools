@@ -1,0 +1,11 @@
+--- a/docs/conf.py
++++ b/docs/conf.py
+@@ -166,7 +166,7 @@ intersphinx_mapping.update(
+ )
+ 
+ # Add support for the unreleased "next-version" change notes
+-extensions += ['sphinxcontrib.towncrier']
++#extensions += ['sphinxcontrib.towncrier']
+ # Extension needs a path from here to the towncrier config.
+ towncrier_draft_working_directory = '..'
+ # Avoid an empty section for unpublished changes.
