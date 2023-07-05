@@ -1,0 +1,11 @@
+--- a/docs/conf.py
++++ b/docs/conf.py
+@@ -103,7 +103,7 @@ extensions += ['sphinx.ext.extlinks']
+ default_role = 'any'
+ 
+ # HTML theme
+-html_theme = 'furo'
++html_theme = 'alabaster'
+ html_logo = "images/logo.svg"
+ 
+ html_theme_options = {

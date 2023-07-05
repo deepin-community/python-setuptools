@@ -1,2 +1,2 @@
-/usr/lib/pypy/dist-packages/easy_install*
 /usr/lib/pypy/dist-packages/setuptools*
+/usr/lib/pypy/dist-packages/_distutils_hack

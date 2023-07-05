@@ -1,0 +1,9 @@
+# Source is included for these files, they can be built in Debian with the
+# mingw toolchain, and the are not shipped in the binary, so this is OK for
+# Debian.  It is not worth repacking the tarball just for this.
+setuptools source: source-contains-prebuilt-windows-binary setuptools/cli-32.exe
+setuptools source: source-contains-prebuilt-windows-binary setuptools/cli-64.exe
+setuptools source: source-contains-prebuilt-windows-binary setuptools/cli.exe
+setuptools source: source-contains-prebuilt-windows-binary setuptools/gui-32.exe
+setuptools source: source-contains-prebuilt-windows-binary setuptools/gui-64.exe
+setuptools source: source-contains-prebuilt-windows-binary setuptools/gui.exe

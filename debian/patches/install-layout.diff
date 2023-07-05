@@ -1,26 +1,27 @@
 --- a/setuptools/command/easy_install.py
 +++ b/setuptools/command/easy_install.py
-@@ -155,13 +155,15 @@ class easy_install(Command):
+@@ -126,6 +126,8 @@ class easy_install(Command):
          ('local-snapshots-ok', 'l',
           "allow building eggs from local checkouts"),
          ('version', None, "print version information and exit"),
 +        ('install-layout=', None, "installation layout to choose (known values: deb)"),
 +        ('force-installation-into-system-dir', '0', "force installation into /usr"),
          ('no-find-links', None,
-          "Don't load find-links defined in packages being installed")
-     ]
+          "Don't load find-links defined in packages being installed"),
+         ('user', None, "install in user site-package '%s'" % site.USER_SITE)
+@@ -133,7 +135,7 @@ class easy_install(Command):
      boolean_options = [
          'zip-ok', 'multi-version', 'exclude-scripts', 'upgrade', 'always-copy',
          'editable',
--        'no-deps', 'local-snapshots-ok', 'version'
+-        'no-deps', 'local-snapshots-ok', 'version',
 +        'no-deps', 'local-snapshots-ok', 'version', 'force-installation-into-system-dir'
+         'user'
      ]
  
-     if site.ENABLE_USER_SITE:
-@@ -209,6 +211,10 @@ class easy_install(Command):
+@@ -178,6 +180,10 @@ class easy_install(Command):
+         self.pth_file = self.always_copy_from = None
          self.site_dirs = None
          self.installed_projects = {}
-         self.sitepy_installed = False
 +        # enable custom installation, known values: deb
 +        self.install_layout = None
 +        self.force_installation_into_system_dir = None
@@ -28,7 +29,7 @@
          # Always read easy_install options, even if we are subclassed, or have
          # an independent instance created.  This ensures that defaults will
          # always come from the standard configuration file(s)' "easy_install"
-@@ -277,6 +283,11 @@ class easy_install(Command):
+@@ -259,6 +265,11 @@ class easy_install(Command):
          self.expand_basedirs()
          self.expand_dirs()
  
@@ -40,7 +41,7 @@
          self._expand(
              'install_dir', 'script_dir', 'build_directory',
              'site_dirs',
-@@ -303,6 +314,15 @@ class easy_install(Command):
+@@ -285,6 +296,15 @@ class easy_install(Command):
          if self.user and self.install_purelib:
              self.install_dir = self.install_purelib
              self.script_dir = self.install_scripts
@@ -55,8 +56,8 @@
 +
          # default --record from the install command
          self.set_undefined_options('install', ('record', 'record'))
-         # Should this be moved to the if statement below? It's not used
-@@ -1355,11 +1375,28 @@ class easy_install(Command):
+         self.all_site_dirs = get_site_dirs()
+@@ -1334,11 +1354,28 @@ class easy_install(Command):
                  self.debug_print("os.makedirs('%s', 0o700)" % path)
                  os.makedirs(path, 0o700)
  
@@ -85,7 +86,7 @@
      )
  
      DEFAULT_SCHEME = dict(
-@@ -1370,11 +1407,18 @@ class easy_install(Command):
+@@ -1349,11 +1386,18 @@ class easy_install(Command):
      def _expand(self, *attrs):
          config_vars = self.get_finalized_command('install').config_vars
  
@@ -99,30 +100,30 @@
 +            else:
 +                scheme_name = "posix_local"
              # Set default install_dir/scripts from --prefix
-             config_vars = config_vars.copy()
+             config_vars = dict(config_vars)
              config_vars['base'] = self.prefix
 -            scheme = self.INSTALL_SCHEMES.get(os.name, self.DEFAULT_SCHEME)
 +            scheme = self.INSTALL_SCHEMES.get(scheme_name,self.DEFAULT_SCHEME)
              for attr, val in scheme.items():
                  if getattr(self, attr, None) is None:
                      setattr(self, attr, val)
-@@ -1416,9 +1460,15 @@ def get_site_dirs():
-                 sitedirs.extend([
-                     os.path.join(
-                         prefix,
-+                        "local/lib",
-+                        "python" + sys.version[:3],
-+                        "dist-packages",
-+                    ),
-+                    os.path.join(
-+                        prefix,
-                         "lib",
-                         "python{}.{}".format(*sys.version_info),
--                        "site-packages",
-+                        "dist-packages",
-                     ),
-                     os.path.join(prefix, "lib", "site-python"),
-                 ])
+@@ -1397,9 +1441,15 @@ def get_site_dirs():
+             sitedirs.extend([
+                 os.path.join(
+                     prefix,
++                    "local/lib",
++                    "python" + sys.version[:3],
++                    "dist-packages",
++                ),
++                os.path.join(
++                    prefix,
+                     "lib",
+                     "python{}.{}".format(*sys.version_info),
+-                    "site-packages",
++                    "dist-packages",
+                 ),
+                 os.path.join(prefix, "lib", "site-python"),
+             ])
 --- a/setuptools/command/install_egg_info.py
 +++ b/setuptools/command/install_egg_info.py
 @@ -1,5 +1,5 @@
@@ -132,7 +133,7 @@
  
  from setuptools import Command
  from setuptools import namespaces
-@@ -18,14 +18,31 @@ class install_egg_info(namespaces.Instal
+@@ -19,14 +19,31 @@ class install_egg_info(namespaces.Instal
  
      def initialize_options(self):
          self.install_dir = None

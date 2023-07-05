@@ -1,0 +1,11 @@
+--- a/docs/conf.py
++++ b/docs/conf.py
+@@ -119,7 +119,7 @@ html_theme_options = {
+ }
+ 
+ # Add support for inline tabs
+-extensions += ['sphinx_inline_tabs']
++#extensions += ['sphinx_inline_tabs']
+ 
+ # Support for distutils
+ 

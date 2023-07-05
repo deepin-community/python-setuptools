@@ -7,4 +7,10 @@ no-SOURCES.txt-in-egg-ingo.diff
 reproducible.diff
 sorted-requires.diff
 PKG-INFO-output-reproducible.diff
-removed-bdist_wininst.patch
+no-sidebar.diff
+no-sphinx-inline-tabs.diff
+no-sphinx-towncrier.diff
+no-sphinx-jaraco-tidelift.diff
+sphinx-theme.diff
+no-sphinx-custom-icons.diff
+no-sphinx-hoverxref.diff
